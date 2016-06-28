@@ -17,12 +17,24 @@ public class ExplorerActivity extends AppCompatActivity {
     }
 
     private void init() {
-        WebView webView = (WebView) findViewById(R.id.web_view);
+        final WebView webView = (WebView) findViewById(R.id.web_view);
         if (webView != null) {
-            webView.setWebViewClient(new WebViewClient());
+            webView.setWebViewClient(new WebViewClient() {
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    if (url.endsWith("exit")) {
+                        finish();
+                    } else {
+                        webView.loadUrl(url);
+                    }
+                    return true;
+                }
+            });
             WebSettings settings = webView.getSettings();
             settings.setJavaScriptEnabled(true);
-            webView.loadUrl("https://google.co.in");
+
+            webView.loadUrl(getString(R.string.explorer_url));
         }
     }
+
 }

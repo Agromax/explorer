@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Explorer</string>
+    <string name="main_page_text">Welcome to RDF Explorer. Following actions are currently available</string>
+</resources>

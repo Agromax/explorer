@@ -1,6 +1,8 @@
 package com.rdfex.util;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 
 import com.rdfex.R;
 
@@ -52,5 +54,17 @@ public class ExUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void alert(Context context, String message) {
+        new AlertDialog.Builder(context)
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).create()
+                .show();
     }
 }

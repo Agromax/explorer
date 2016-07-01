@@ -19,7 +19,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient client = new OkHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
      * @see ExplorerActivity
      */
     private void handleExplore() {
-        Intent explorerIntent = new Intent(this, ExplorerActivity.class);
-        startActivity(explorerIntent);
+        Intent treeIntent = new Intent(this, TreeActivity.class);
+        startActivity(treeIntent);
     }
 
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Space;
 import android.widget.TableLayout;
 
@@ -17,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -25,6 +27,7 @@ public class TreeActivity extends AppCompatActivity {
     private String vocabText = null;
     private JSONObject vocabJson = null;
     private TableLayout tableLayout = null;
+    private ArrayList<JSONObject> currentVisible = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class TreeActivity extends AppCompatActivity {
         addSpace(ll, width);
         addContent(ll, root);
         tableLayout.addView(ll);
+        currentVisible.add(root);
 
         // Should we expand this node ?
         boolean expand = root.optBoolean("expand", false);
@@ -142,10 +146,11 @@ public class TreeActivity extends AppCompatActivity {
 
     private void shrinkSiblings(final JSONObject node) {
         new AsyncTask<Void, Void, Void>() {
+            private HashSet<JSONObject> path = null;
 
             @Override
             protected Void doInBackground(Void... params) {
-                HashSet<JSONObject> path = new HashSet<>();
+                path = new HashSet<>();
                 if (findPath(vocabJson, node, path)) {
                     path.add(vocabJson);
                     unmarkExcept(vocabJson, path);
@@ -156,7 +161,19 @@ public class TreeActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 tableLayout.removeAllViews();
+                currentVisible.clear();
                 addToView(vocabJson, 0);
+
+                int cnt = 0;
+                for (JSONObject o : currentVisible) {
+                    if (o == node) {
+                        break;
+                    } else {
+                        cnt++;
+                    }
+                }
+                ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+                scrollView.scrollTo(0, cnt * 60);
             }
         }.execute();
 

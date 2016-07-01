@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExplorerActivity"></activity>
+        <activity android:name=".ExplorerActivity" />
+        <activity android:name=".TreeActivity"></activity>
     </application>
 
 </manifest>

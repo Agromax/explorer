@@ -1,0 +1,5 @@
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+    android:hint="Hint search"
+    android:label="@string/app_name"
+
+    />

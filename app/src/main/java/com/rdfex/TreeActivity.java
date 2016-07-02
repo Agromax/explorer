@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * @author Anurag Gautam
+ * @version $revision-history:$ 010716, 020716
+ */
 public class TreeActivity extends AppCompatActivity {
 
     private String vocabText = null;
@@ -34,14 +38,21 @@ public class TreeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tree);
 
+        // The main layout that displays the data graphically
         tableLayout = (TableLayout) findViewById(R.id.table);
-        if (tableLayout != null)
+        if (tableLayout != null) {
             tableLayout.removeAllViews();
+        }
 
+        // Start the process
         initiate();
     }
 
 
+    /**
+     * The text in the vocab file is a string dump of a JSON object. So this method parses that
+     * string and converts it to an actual JSON object.
+     */
     private void parseVocabulary() {
         if (vocabText != null) {
             try {
@@ -49,10 +60,18 @@ public class TreeActivity extends AppCompatActivity {
                 addToView(vocabJson, 0);
             } catch (JSONException e) {
                 e.printStackTrace();
+                ExUtil.alert(this, e.getMessage());
+                finish();
             }
         }
     }
 
+    /**
+     * Visualizes the JSON vocabulary as a tree structure
+     *
+     * @param root
+     * @param tabIndex
+     */
     private void addToView(JSONObject root, int tabIndex) {
         int width = computeWidth(tabIndex);
 
@@ -194,11 +213,15 @@ public class TreeActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Loads vocabulary from the vocab file and renders it as a tree. If the
+     * vocabulary is not found it displays an error message and finishes the activity
+     */
     private void initiate() {
         String vocabFilename = getString(R.string.vocab_file_name);
         vocabText = ExUtil.readFile(this, vocabFilename);
         if (vocabText.isEmpty()) {
-            ExUtil.alert(this, "Vocabulary file is either absent or corrupted. Please load it first");
+            ExUtil.alert(this, getString(R.string.vocab_not_found));
             finish();
         } else {
             parseVocabulary();

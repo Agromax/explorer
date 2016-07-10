@@ -12,9 +12,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="right"
                     android:padding="10dp"
                     android:text="Subject"
@@ -22,6 +26,8 @@
 
                 <TextView
                     android:id="@+id/subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-thin"
                     android:text="Wheat"
                     android:textColor="#000"
@@ -29,9 +35,13 @@
                     android:textStyle="italic" />
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="right"
                     android:padding="10dp"
                     android:text="Predicate"
@@ -39,6 +49,8 @@
 
                 <TextView
                     android:id="@+id/predicate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-thin"
                     android:text="is"
                     android:textColor="#000"
@@ -46,9 +58,13 @@
                     android:textStyle="italic" />
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="right"
                     android:padding="10dp"
                     android:text="Object"
@@ -56,6 +72,8 @@
 
                 <TextView
                     android:id="@+id/object"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-thin"
                     android:text="staple food of India"
                     android:textColor="#000"
@@ -63,18 +81,22 @@
                     android:textStyle="italic" />
             </TableRow>
 
-            <TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/view_rdf_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0dp"
                     android:drawableLeft="@drawable/ic_open_in_new_black_24dp"
                     android:drawablePadding="6dp"
                     android:gravity="center"
                     android:text="View"
                     android:textAllCaps="false" />
-
             </TableRow>
+
         </TableLayout>
     </LinearLayout>
 </RelativeLayout>

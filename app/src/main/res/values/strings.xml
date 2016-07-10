@@ -7,4 +7,5 @@
     <string name="vocab_not_found">Vocabulary file is either absent or corrupted. Please load it first and try again</string>
 
     <string name="search_btn_title">Search Vocabulary</string>
+    <string name="viewer_activity_title">RDF Triples List</string>
 </resources>

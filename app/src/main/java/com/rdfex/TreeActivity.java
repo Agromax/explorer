@@ -1,5 +1,6 @@
 package com.rdfex;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -162,6 +163,9 @@ public class TreeActivity extends AppCompatActivity {
 
     private void handleViewRDF(final String term) {
         System.out.println("Browsing term: " + term);
+        Intent intent = new Intent(this, ViewerActivity.class);
+        intent.putExtra(Constants.TERM_NAME, term);
+        startActivity(intent);
     }
 
     private boolean findPath(JSONObject root, JSONObject target, Collection<JSONObject> path) {

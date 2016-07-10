@@ -6,10 +6,16 @@
     tools:context="com.rdfex.ViewerActivity">
 
     <ScrollView
-        android:id="@+id/rdf_list"
+        android:id="@+id/rdf_list_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/viewer_background">
+
+        <LinearLayout
+            android:id="@+id/rdf_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
 
     </ScrollView>
 </RelativeLayout>

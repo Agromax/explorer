@@ -19,7 +19,11 @@
         </activity>
         <activity android:name=".ExplorerActivity" />
         <activity android:name=".TreeActivity" />
-        <activity android:name=".ViewerActivity"></activity>
+        <activity android:name=".ViewerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TreeActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -87,9 +87,8 @@
 
                 <Button
                     android:id="@+id/view_rdf_btn"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0dp"
                     android:drawableLeft="@drawable/ic_open_in_new_black_24dp"
                     android:drawablePadding="6dp"
                     android:gravity="center"

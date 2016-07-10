@@ -127,7 +127,7 @@ public class TreeActivity extends AppCompatActivity {
     }
 
     private void addContent(ViewGroup parent, final JSONObject node) {
-        String term = node.optString("text", null);
+        final String term = node.optString("text", null);
         if (term != null) {
             Button button = new Button(this);
             button.setText(term);
@@ -151,15 +151,17 @@ public class TreeActivity extends AppCompatActivity {
             viewRDF.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    handleViewRDF(term);
                 }
             });
 
             parent.addView(button);
             parent.addView(viewRDF);
-
-
         }
+    }
+
+    private void handleViewRDF(final String term) {
+        System.out.println("Browsing term: " + term);
     }
 
     private boolean findPath(JSONObject root, JSONObject target, Collection<JSONObject> path) {

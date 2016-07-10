@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ExplorerActivity" />
-        <activity android:name=".TreeActivity"></activity>
+        <activity android:name=".TreeActivity" />
+        <activity android:name=".ViewerActivity"></activity>
     </application>
 
 </manifest>

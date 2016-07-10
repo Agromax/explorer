@@ -24,6 +24,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TreeActivity" />
         </activity>
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

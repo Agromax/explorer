@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rdfex.AboutActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mind1" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ad000000"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:paddingTop="16dp"
+        android:text="About"
+        android:textColor="#FFF"
+        android:textSize="48sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Copyright 2005-2016\nAnurag Gautam Softwares"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:paddingBottom="16dp">
+
+        <Button
+            android:id="@+id/ok_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ok" />
+    </RelativeLayout>
+
+</RelativeLayout>

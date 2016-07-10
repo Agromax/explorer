@@ -2,6 +2,7 @@ package com.rdfex;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Space;
@@ -144,7 +146,19 @@ public class TreeActivity extends AppCompatActivity {
                 }
             });
 
+            ImageButton viewRDF = new ImageButton(this);
+            viewRDF.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_launch_black_24dp));
+            viewRDF.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
             parent.addView(button);
+            parent.addView(viewRDF);
+
+
         }
     }
 

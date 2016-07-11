@@ -1,6 +1,7 @@
 package com.rdfex;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -72,6 +73,8 @@ public class ViewerActivity extends AppCompatActivity {
     }
 
     private void handleViewRDF() {
-
+        Intent expandIntent = new Intent(this, RDFExpandActivity.class);
+        expandIntent.putExtra(Constants.RDF_ID, "fake-id-obviously");
+        startActivity(expandIntent);
     }
 }

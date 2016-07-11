@@ -24,7 +24,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TreeActivity" />
         </activity>
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".RDFExpandActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ViewerActivity" />
+        </activity>
     </application>
 
 </manifest>

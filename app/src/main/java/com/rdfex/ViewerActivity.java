@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -55,11 +56,22 @@ public class ViewerActivity extends AppCompatActivity {
                         predView.setText(t.getPredicate());
                         objView.setText(t.getObject());
 
+                        Button viewButton = (Button) rdfView.findViewById(R.id.view_rdf_btn);
+                        viewButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                handleViewRDF();
+                            }
+                        });
                         list.addView(rdfView);
                     }
                 }
             }
         }.execute();
+
+    }
+
+    private void handleViewRDF() {
 
     }
 }

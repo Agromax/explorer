@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Copyright 2005-2016\nAnurag Gautam Softwares"
+        android:text="Copyright 2005-2016\nAnurag Gautam Software Technology Corporation of India Ltd."
         android:textColor="#FFF"
         android:textSize="20sp" />
 

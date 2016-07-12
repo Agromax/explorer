@@ -38,7 +38,7 @@ public class ViewerActivity extends AppCompatActivity {
 
             @Override
             protected ArrayList<Triple> doInBackground(Void... params) {
-                return TripleLoader.loadTriple(term);
+                return TripleLoader.loadTriple(ViewerActivity.this, term);
             }
 
             @Override

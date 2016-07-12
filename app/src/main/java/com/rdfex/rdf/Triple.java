@@ -9,4 +9,6 @@ public interface Triple {
     String getPredicate();
 
     String getObject();
+
+    String getId();
 }

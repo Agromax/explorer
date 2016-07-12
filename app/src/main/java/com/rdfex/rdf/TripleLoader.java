@@ -1,6 +1,19 @@
 package com.rdfex.rdf;
 
+import android.content.Context;
+
+import com.rdfex.R;
+import com.rdfex.util.Constants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by Dell on 10-07-2016.
@@ -46,13 +59,48 @@ public class TripleLoader {
      *
      * @param query
      */
-    public static ArrayList<Triple> loadTriple(String query) {
+    public static ArrayList<Triple> loadTriple(Context context, String query) {
         ArrayList<Triple> triples = new ArrayList<>();
+        /*
         for (String[] t : DUMMMY_TRIPLES) {
             if (t.length >= 3) {
                 triples.add(new SPOTriple(t[0], t[1], t[2]));
             }
         }
+        */
+
+        String result = load(context, query);
+        try {
+            JSONObject res = new JSONObject(result);
+            int code = res.getInt("code");
+            if (code == 0) {
+                JSONArray resArray = res.getJSONArray("msg");
+                for (int i = 0; i < resArray.length(); i++) {
+                    JSONObject o = resArray.getJSONObject(i);
+                    String id = o.getString("_id");
+                    String sub = o.getString("sub");
+                    String pre = o.getString("pre");
+                    String obj = o.getString("obj");
+                    triples.add(new SPOTriple(id, sub, pre, obj));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return triples;
+    }
+
+    private static String load(Context context, CharSequence q) {
+        Request request = new Request.Builder()
+                .url(context.getString(R.string.query_url) + "?q=" + q)
+                .build();
+
+        try {
+            Response response = Constants.HTTP_CLIENT.newCall(request).execute();
+            return response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

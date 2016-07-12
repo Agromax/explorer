@@ -8,4 +8,9 @@
 
     <string name="search_btn_title">Search Vocabulary</string>
     <string name="viewer_activity_title">RDF Triples List</string>
+
+    <string name="credential_file_name">credentials.json</string>
+
+    <string name="login_url">http://192.168.1.7:3000/users/login</string>
+    <string name="query_url">http://192.168.1.7:3000/triples/search</string>
 </resources>

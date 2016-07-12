@@ -7,8 +7,10 @@ public class SPOTriple implements Triple {
     private final String obj;
     private final String sub;
     private final String pre;
+    private final String id;
 
-    public SPOTriple(String s, String p, String o) {
+    public SPOTriple(String id, String s, String p, String o) {
+        this.id = id;
         this.sub = s;
         this.pre = p;
         this.obj = o;
@@ -27,6 +29,11 @@ public class SPOTriple implements Triple {
     @Override
     public String getObject() {
         return obj.replaceAll("_", " ");
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     @Override

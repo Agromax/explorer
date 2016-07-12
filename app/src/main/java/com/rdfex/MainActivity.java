@@ -10,7 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.rdfex.util.Constants;
 import com.rdfex.util.ExUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -20,6 +24,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     private final OkHttpClient client = new OkHttpClient();
+    private ActiveUser activeUser = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        testLogIn();
         Button explore = (Button) findViewById(R.id.explore_btn);
         if (explore != null) {
             explore.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +65,33 @@ public class MainActivity extends AppCompatActivity {
                     updateVocabulary();
                 }
             });
+        }
+    }
+
+    private void testLogIn() {
+        Intent loginActivity = new Intent(this, LoginActivity.class);
+        startActivityForResult(loginActivity, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                String result = data.getStringExtra(Constants.LOGIN_RESULT);
+                ExUtil.alert(this, "Login Successful");
+                try {
+                    JSONObject user = new JSONObject(result);
+                    String name = user.optString("name", null);
+                    String email = user.optString("email", null);
+                    String userId = user.optString("userId", null);
+                    String token = user.optString("sessionToken", null);
+
+                    activeUser = new ActiveUser(name, email, userId, token);
+                    Constants.ACTIVE_USER = activeUser;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

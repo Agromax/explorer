@@ -84,9 +84,11 @@ public class RDFExpandActivity extends AppCompatActivity {
         TextView preView = (TextView) findViewById(R.id.pre);
         TextView objView = (TextView) findViewById(R.id.obj);
 
-        subView.setText(sub);
-        preView.setText(pre);
-        objView.setText(obj);
+        if (subView != null && objView != null && preView != null) {
+            subView.setText(sub);
+            preView.setText(pre);
+            objView.setText(obj);
+        }
     }
 
     /**

@@ -2,7 +2,7 @@
     <string name="app_name">Explorer</string>
     <string name="main_page_text">Welcome to RDF Explorer. Following actions are currently available</string>
     <string name="explorer_url">http://192.168.1.2:3000/ex/</string>
-    <string name="vocab_url">http://192.168.1.2/vocab/v.json</string>
+    <string name="vocab_url">http://192.168.1.2:3000/vocab</string>
     <string name="vocab_file_name">vocab.json</string>
     <string name="vocab_not_found">Vocabulary file is either absent or corrupted. Please load it first and try again</string>
 
@@ -14,4 +14,6 @@
     <string name="login_url">http://192.168.1.2:3000/users/login</string>
     <string name="query_url">http://192.168.1.2:3000/triples/search</string>
     <string name="triple_url">http://192.168.1.2:3000/triples/</string>
+
+    <string name="affix_text_url">http://192.168.1.2:3000/triples/text</string>
 </resources>

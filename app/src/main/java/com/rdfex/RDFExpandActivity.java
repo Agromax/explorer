@@ -1,9 +1,12 @@
 package com.rdfex;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.rdfex.util.Constants;
@@ -34,7 +37,23 @@ public class RDFExpandActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         this.tripleId = extras.getString(Constants.RDF_ID);
 
+        Button addText = (Button) findViewById(R.id.add_text);
+        if (addText != null) {
+            addText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleAddText();
+                }
+            });
+        }
+
         loadTriple();
+    }
+
+    private void handleAddText() {
+        Intent intent = new Intent(this, AffixTextActivity.class);
+        intent.putExtra("tripleId", tripleId);
+        startActivity(intent);
     }
 
     private void loadTriple() {

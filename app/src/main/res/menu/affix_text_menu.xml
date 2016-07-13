@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/affix_send"
+        android:icon="@drawable/ic_check_black_24dp"
+        android:title="Save"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/affix_close"
+        android:icon="@drawable/ic_close_black_24dp"
+        android:title="Exit"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     String token = user.optString("sessionToken", null);
 
                     activeUser = new ActiveUser(name, email, userId, token);
-                    Constants.ACTIVE_USER = activeUser;
+                    Constants.ACTIVE_USER = new ActiveUser(name, email, userId, token);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

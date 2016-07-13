@@ -61,13 +61,6 @@ public class TripleLoader {
      */
     public static ArrayList<Triple> loadTriple(Context context, String query) {
         ArrayList<Triple> triples = new ArrayList<>();
-        /*
-        for (String[] t : DUMMMY_TRIPLES) {
-            if (t.length >= 3) {
-                triples.add(new SPOTriple(t[0], t[1], t[2]));
-            }
-        }
-        */
 
         String result = load(context, query);
         try {

@@ -48,20 +48,21 @@ public class ViewerActivity extends AppCompatActivity {
                 if (triples != null && list != null) {
 
                     for (Triple t : triples) {
-                        View rdfView = getLayoutInflater().inflate(R.layout.rdf_view, null);
-                        TextView subjView = (TextView) rdfView.findViewById(R.id.subject);
+                        final View rdfView = getLayoutInflater().inflate(R.layout.rdf_view, null);
+                        final TextView subjView = (TextView) rdfView.findViewById(R.id.subject);
                         TextView predView = (TextView) rdfView.findViewById(R.id.predicate);
                         TextView objView = (TextView) rdfView.findViewById(R.id.object);
 
                         subjView.setText(t.getSubject());
                         predView.setText(t.getPredicate());
                         objView.setText(t.getObject());
+                        subjView.setTag(t.getId());
 
                         Button viewButton = (Button) rdfView.findViewById(R.id.view_rdf_btn);
                         viewButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                handleViewRDF();
+                                handleViewRDF(subjView.getTag());
                             }
                         });
                         list.addView(rdfView);
@@ -72,9 +73,14 @@ public class ViewerActivity extends AppCompatActivity {
 
     }
 
-    private void handleViewRDF() {
-        Intent expandIntent = new Intent(this, RDFExpandActivity.class);
-        expandIntent.putExtra(Constants.RDF_ID, "fake-id-obviously");
-        startActivity(expandIntent);
+    private void handleViewRDF(Object tag) {
+        if (tag != null) {
+            String id = (String) tag;
+            System.out.println("RDF ID: " + id);
+            Intent expandIntent = new Intent(this, RDFExpandActivity.class);
+            expandIntent.putExtra(Constants.RDF_ID, id);
+            startActivity(expandIntent);
+        }
+
     }
 }

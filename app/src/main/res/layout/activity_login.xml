@@ -3,33 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/greenArrow"
     tools:context="com.rdfex.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="center_vertical"
+        android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 
         <EditText
             android:id="@+id/email"
+            style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your Email"
+            android:hint="Email"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/password"
+            style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your Password"
+            android:hint="Password"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/login_btn"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Log In" />
@@ -37,33 +41,39 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:text="OR"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="#FFF" />
 
 
         <EditText
             android:id="@+id/real_name"
+            style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your Name"
+            android:hint="Full Name"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/user_email"
+            style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your Email"
+            android:hint="Email"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/user_password"
+            style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your Password"
+            android:hint="Password"
             android:inputType="textPassword" />
 
         <Button
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Register" />

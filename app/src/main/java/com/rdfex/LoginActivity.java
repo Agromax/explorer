@@ -1,8 +1,10 @@
 package com.rdfex;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -75,6 +77,16 @@ public class LoginActivity extends AppCompatActivity {
                         Response result = client.newCall(login).execute();
                         return result.body().string();
                     } catch (IOException e) {
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setCancelable(false)
+                                .setMessage(e.getMessage())
+                                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                }).create()
+                                .show();
                         e.printStackTrace();
                     }
                     return null;
@@ -105,7 +117,16 @@ public class LoginActivity extends AppCompatActivity {
 
         } else {
             // Show dialog indicating that some data is missing
-            ExUtil.alert(this, "Parameters Missing");
+            new AlertDialog.Builder(this)
+                    .setCancelable(false)
+                    .setMessage("Parameters Missing")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).create()
+                    .show();
         }
     }
 

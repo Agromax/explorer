@@ -1,10 +1,12 @@
 package com.rdfex;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -48,9 +50,9 @@ public class TreeActivity extends AppCompatActivity {
 
         // The main layout that displays the data graphically
         tableLayout = (TableLayout) findViewById(R.id.table);
-        if (tableLayout != null) {
+        /*if (tableLayout != null) {
             tableLayout.removeAllViews();
-        }
+        }*/
 
         // Start the process
         initiate();
@@ -65,11 +67,23 @@ public class TreeActivity extends AppCompatActivity {
         if (vocabText != null) {
             try {
                 vocabJson = new JSONObject(vocabText);
+                if (tableLayout != null) {
+                    // Clear the table
+                    tableLayout.removeAllViews();
+                }
                 addToView(vocabJson, 0);
             } catch (JSONException e) {
                 e.printStackTrace();
-                ExUtil.alert(this, e.getMessage());
-                finish();
+                new AlertDialog.Builder(this)
+                        .setCancelable(false)
+                        .setMessage(e.getMessage())
+                        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).create()
+                        .show();
             }
         }
     }
@@ -246,8 +260,17 @@ public class TreeActivity extends AppCompatActivity {
         String vocabFilename = getString(R.string.vocab_file_name);
         vocabText = ExUtil.readFile(this, vocabFilename);
         if (vocabText.isEmpty()) {
-            ExUtil.alert(this, getString(R.string.vocab_not_found));
-            finish();
+            new AlertDialog.Builder(this)
+                    .setCancelable(false)
+                    .setMessage(getString(R.string.vocab_not_found))
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .create()
+                    .show();
         } else {
             parseVocabulary();
         }

@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="viewer_background">#bfbfbf</color>
     <color name="greenArrow">#70DB93</color>
+    <color name="greenSparrow">#02ae3a</color>
 </resources>

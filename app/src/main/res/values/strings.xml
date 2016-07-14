@@ -16,4 +16,6 @@
     <string name="triple_url">http://192.168.1.2:3000/triples/</string>
 
     <string name="affix_text_url">http://192.168.1.2:3000/triples/text</string>
+    <string name="get_affixed_text">http://192.168.1.2:3000/triples/text</string>
+    <string name="user_info_url">http://192.168.1.2:3000/users</string>
 </resources>

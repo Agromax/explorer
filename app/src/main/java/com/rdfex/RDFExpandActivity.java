@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rdfex.util.Constants;
 import com.rdfex.util.ExUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,6 +50,100 @@ public class RDFExpandActivity extends AppCompatActivity {
         }
 
         loadTriple();
+        loadAffixedKnowledge();
+    }
+
+    private void loadAffixedKnowledge() {
+        final LinearLayout extraKnowledgeList = (LinearLayout) findViewById(R.id.extra_info_list);
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+                String url = getString(R.string.get_affixed_text) + "?id=" + tripleId;
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+
+                try {
+                    Response res = Constants.HTTP_CLIENT.newCall(request).execute();
+                    return res.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null) {
+                    try {
+                        JSONObject ts = new JSONObject(s);
+                        int code = ts.getInt("code");
+                        if (code == 0) {
+                            JSONArray msgs = ts.getJSONArray("msg");
+                            for (int i = 0; i < msgs.length(); i++) {
+                                JSONObject kw = msgs.getJSONObject(i);
+                                String ctype = kw.getString("contentType");
+                                if (ctype.equalsIgnoreCase("text")) {
+                                    addTextKnowledge(kw);
+                                }
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
+    }
+
+    private void addTextKnowledge(final JSONObject kw) {
+        final LinearLayout extraKnowledgeList = (LinearLayout) findViewById(R.id.extra_info_list);
+
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+                try {
+                    String userId = kw.getString("userId");
+                    Request request = new Request.Builder()
+                            .url(getString(R.string.user_info_url) + "?id=" + userId)
+                            .build();
+
+                    Response res = Constants.HTTP_CLIENT.newCall(request).execute();
+                    return res.body().string();
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null) {
+                    System.out.println(s);
+                    try {
+                        JSONObject uu = new JSONObject(s);
+                        JSONObject u = uu.getJSONObject("msg");
+                        String name = u.getString("name");
+                        String content = kw.getString("content");
+
+                        View view = getLayoutInflater().inflate(R.layout.affixed_knowledge_layout, null);
+                        TextView userName = (TextView) view.findViewById(R.id.user_name);
+                        TextView text = (TextView) view.findViewById(R.id.text_content);
+
+                        userName.setText(name);
+                        text.setText(content);
+
+                        extraKnowledgeList.addView(view);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
     }
 
     private void handleAddText() {

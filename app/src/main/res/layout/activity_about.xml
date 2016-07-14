@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="com.rdfex.AboutActivity">
 
     <ImageView
@@ -27,7 +28,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Copyright 2005-2016\nAnurag Gautam Software Technology Corporation of India Ltd."
+        android:text="Anurag Gautam\nThis software application was developed as a part of my Masters' thesis"
         android:textColor="#FFF"
         android:textSize="20sp" />
 

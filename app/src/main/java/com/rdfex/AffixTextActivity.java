@@ -10,6 +10,10 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.rdfex.util.Constants;
+import com.rdfex.util.ExUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -20,6 +24,7 @@ import okhttp3.Response;
 public class AffixTextActivity extends AppCompatActivity {
 
     private String tripleId = null;
+    private ActiveUser activeUser = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,18 @@ public class AffixTextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_affix_text);
 
         tripleId = getIntent().getExtras().getString("tripleId");
+
+        String content = ExUtil.readFile(this, getString(R.string.credential_file_name));
+        try {
+            JSONObject user = new JSONObject(content);
+            String name = user.optString("name", null);
+            String email = user.optString("email", null);
+            String userId = user.optString("_id", null);
+            String token = user.optString("sessionToken", null);
+            activeUser = new ActiveUser(name, email, userId, token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -62,8 +79,8 @@ public class AffixTextActivity extends AppCompatActivity {
                 protected String doInBackground(Void... params) {
                     FormBody body = new FormBody.Builder()
                             .add("content", s)
-                            .add("user", Constants.ACTIVE_USER.getUserId())
-                            .add("token", Constants.ACTIVE_USER.getSessionToken())
+                            .add("user", activeUser.getUserId())
+                            .add("sessionToken", activeUser.getSessionToken())
                             .add("triple", tripleId)
                             .build();
 
@@ -86,6 +103,7 @@ public class AffixTextActivity extends AppCompatActivity {
                     if (progressDialog != null) {
                         progressDialog.dismiss();
                     }
+                    finish();
                 }
             }.execute();
         }

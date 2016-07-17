@@ -66,6 +66,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button link = (Button) findViewById(R.id.link_search);
+        if (link != null) {
+            link.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent linkView = new Intent(MainActivity.this, LinkedSearchActivity.class);
+                    startActivity(linkView);
+                }
+            });
+        }
     }
 
     private void testLogIn() {

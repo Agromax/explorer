@@ -31,7 +31,8 @@
                 android:value=".ViewerActivity" />
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".AffixTextActivity"></activity>
+        <activity android:name=".AffixTextActivity" />
+        <activity android:name=".LinkedSearchActivity"></activity>
     </application>
 
 </manifest>

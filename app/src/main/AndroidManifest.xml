@@ -32,7 +32,11 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".AffixTextActivity" />
-        <activity android:name=".LinkedSearchActivity"></activity>
+        <activity android:name=".LinkedSearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>

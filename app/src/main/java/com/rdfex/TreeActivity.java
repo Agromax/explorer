@@ -54,6 +54,8 @@ public class TreeActivity extends AppCompatActivity {
             tableLayout.removeAllViews();
         }*/
 
+        setTitle("Vocabulary Browser");
+
         // Start the process
         initiate();
     }

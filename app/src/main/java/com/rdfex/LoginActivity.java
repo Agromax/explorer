@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        setTitle("Login");
+
         Button loginButton = (Button) findViewById(R.id.login_btn);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +43,16 @@ public class LoginActivity extends AppCompatActivity {
                 manageLogin();
             }
         });
+
+        Button registerButton = (Button) findViewById(R.id.al_register);
+        if (registerButton != null) {
+            registerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleRegisterAction();
+                }
+            });
+        }
 
 
         String activeUser = testLoggedIn();
@@ -51,6 +63,65 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
+
+    }
+
+    private void handleRegisterAction() {
+        EditText name = (EditText) findViewById(R.id.al_real_name);
+        EditText email = (EditText) findViewById(R.id.al_user_email);
+        EditText password = (EditText) findViewById(R.id.al_user_password);
+
+        String n = name.getText().toString();
+        String e = email.getText().toString();
+        String p = password.getText().toString();
+
+        registerUser(n, e, p);
+    }
+
+    private void registerUser(String name, String email, String pass) {
+        final FormBody body = new FormBody.Builder()
+                .add("name", name)
+                .add("email", email)
+                .add("password", pass)
+                .build();
+
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+                Request request = new Request.Builder()
+                        .url(getString(R.string.register_url))
+                        .post(body)
+                        .build();
+                try {
+                    Response res = Constants.HTTP_CLIENT.newCall(request).execute();
+                    return res.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                if (s != null) {
+                    try {
+                        JSONObject res = new JSONObject(s);
+                        int code = res.getInt("code");
+                        if (code == 0) {
+                            JSONObject user = res.getJSONObject("msg");
+                            ExUtil.writeFile(LoginActivity.this, getString(R.string.credential_file_name), user.toString());
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra(Constants.LOGIN_RESULT, user.toString());
+                            setResult(RESULT_OK, resultIntent);
+                            finish();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
 
     }
 

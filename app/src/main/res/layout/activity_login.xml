@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/greenArrow"
     tools:context="com.rdfex.LoginActivity">
 
     <LinearLayout
@@ -20,6 +19,7 @@
             style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/green_borders"
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
@@ -28,14 +28,16 @@
             style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/green_borders"
             android:hint="Password"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/login_btn"
-            style="@style/Button"
+            style="@style/GreenButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/smart_btn"
             android:text="Log In" />
 
         <TextView
@@ -45,37 +47,46 @@
             android:layout_marginTop="16dp"
             android:text="OR"
             android:textAlignment="center"
-            android:textColor="#FFF" />
+            android:textColor="@color/greenArrow"
+            android:textStyle="bold" />
 
 
         <EditText
-            android:id="@+id/real_name"
+            android:id="@+id/al_real_name"
+
             style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/green_borders"
             android:hint="Full Name"
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/user_email"
+            android:id="@+id/al_user_email"
+
             style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/green_borders"
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/user_password"
+            android:id="@+id/al_user_password"
+
             style="@style/InputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/green_borders"
             android:hint="Password"
             android:inputType="textPassword" />
 
         <Button
-            style="@style/Button"
+            android:id="@+id/al_register"
+            style="@style/GreenButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/smart_btn"
             android:text="Register" />
     </LinearLayout>
 </RelativeLayout>

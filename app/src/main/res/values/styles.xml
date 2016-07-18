@@ -15,6 +15,12 @@
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
+
+    </style>
+
+    <style name="GreenButton">
+        <item name="android:background">@color/greenArrow</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="Button">

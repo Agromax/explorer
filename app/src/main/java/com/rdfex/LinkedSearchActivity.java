@@ -80,12 +80,43 @@ public class LinkedSearchActivity extends AppCompatActivity {
         }
     }
 
-    private void connect(String fromStr, String toStr) {
+    private void connect(final String p, final String q) {
+        System.out.println("Connecting :" + p + " with  " + q);
+        new AsyncTask<Void, Void, ArrayList<Triple>>() {
 
+            @Override
+            protected ArrayList<Triple> doInBackground(Void... params) {
+                return TripleLoader.connect(LinkedSearchActivity.this, p, q);
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<Triple> triples) {
+                if (triples != null) {
+                    System.out.println(triples.size() + " triples found");
+                    LinearLayout results = (LinearLayout) findViewById(R.id.als_search_results);
+
+                    if (results != null) {
+                        results.removeAllViews();
+
+                        for (Triple t : triples) {
+                            View view = getLayoutInflater().inflate(R.layout.triple_result_view, null);
+                            TextView sub = (TextView) view.findViewById(R.id.trv_sub);
+                            TextView pre = (TextView) view.findViewById(R.id.trv_pre);
+                            TextView obj = (TextView) view.findViewById(R.id.trv_obj);
+
+                            sub.setText(t.getSubject());
+                            pre.setText(t.getPredicate());
+                            obj.setText(t.getObject());
+
+                            results.addView(view);
+                        }
+                    }
+                }
+            }
+        }.execute();
     }
 
     private void searchSingle(final String q) {
-        System.out.println("Searching for:"+q);
         new AsyncTask<Void, Void, ArrayList<Triple>>() {
 
             @Override
@@ -99,6 +130,8 @@ public class LinkedSearchActivity extends AppCompatActivity {
                     LinearLayout results = (LinearLayout) findViewById(R.id.als_search_results);
 
                     if (results != null) {
+                        results.removeAllViews();
+
                         for (Triple t : triples) {
                             View view = getLayoutInflater().inflate(R.layout.triple_result_view, null);
                             TextView sub = (TextView) view.findViewById(R.id.trv_sub);

@@ -83,6 +83,34 @@ public class TripleLoader {
         return triples;
     }
 
+    public static ArrayList<Triple> connect(Context context, String p, String q) {
+        ArrayList<Triple> triples = new ArrayList<>();
+
+        Request request = new Request.Builder()
+                .url(context.getString(R.string.connect_url) + "?p=" + p + "&q=" + q)
+                .build();
+        try {
+            Response response = Constants.HTTP_CLIENT.newCall(request).execute();
+            JSONObject jsonObject = new JSONObject(response.body().string());
+            int code = jsonObject.getInt("code");
+            if (code == 0) {
+                JSONArray trips = jsonObject.getJSONArray("msg");
+                for (int i = 0; i < trips.length(); i++) {
+                    JSONObject o = trips.getJSONObject(i);
+                    String id = o.getString("_id");
+                    String sub = o.getString("sub");
+                    String pre = o.getString("pre");
+                    String obj = o.getString("obj");
+                    triples.add(new SPOTriple(id, sub, pre, obj));
+                }
+            }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return triples;
+    }
+
     private static String load(Context context, CharSequence q) {
         Request request = new Request.Builder()
                 .url(context.getString(R.string.query_url) + "?q=" + q)

@@ -27,6 +27,7 @@ public class ViewerActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        setTitle("Triples");
         init();
     }
 

@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -31,6 +34,7 @@ public class RDFExpandActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rdfexpand);
 
+        setTitle("Expanded View");
         setupHomeButton();
         init();
     }
@@ -55,6 +59,7 @@ public class RDFExpandActivity extends AppCompatActivity {
 
     private void loadAffixedKnowledge() {
         final LinearLayout extraKnowledgeList = (LinearLayout) findViewById(R.id.extra_info_list);
+        extraKnowledgeList.removeAllViews();
         new AsyncTask<Void, Void, String>() {
 
             @Override
@@ -235,4 +240,25 @@ public class RDFExpandActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.expanded_view_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.evm_sync:
+                syncKnowledge();
+                break;
+        }
+        return true;
+    }
+
+    private void syncKnowledge() {
+        loadAffixedKnowledge();
+    }
+
 }

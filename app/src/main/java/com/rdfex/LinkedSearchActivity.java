@@ -1,10 +1,12 @@
 package com.rdfex;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.rdfex.rdf.Triple;
 import com.rdfex.rdf.TripleLoader;
+import com.rdfex.util.Constants;
 
 import java.util.ArrayList;
 
@@ -100,14 +103,22 @@ public class LinkedSearchActivity extends AppCompatActivity {
 
                         for (Triple t : triples) {
                             View view = getLayoutInflater().inflate(R.layout.triple_result_view, null);
-                            TextView sub = (TextView) view.findViewById(R.id.trv_sub);
+                            final TextView sub = (TextView) view.findViewById(R.id.trv_sub);
                             TextView pre = (TextView) view.findViewById(R.id.trv_pre);
                             TextView obj = (TextView) view.findViewById(R.id.trv_obj);
+                            sub.setTag(t.getId());
 
                             sub.setText(t.getSubject());
                             pre.setText(t.getPredicate());
                             obj.setText(t.getObject());
 
+                            Button more = (Button) view.findViewById(R.id.trv_more_info);
+                            more.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    handleViewRDF(sub.getTag());
+                                }
+                            });
                             results.addView(view);
                         }
                     }
@@ -134,13 +145,22 @@ public class LinkedSearchActivity extends AppCompatActivity {
 
                         for (Triple t : triples) {
                             View view = getLayoutInflater().inflate(R.layout.triple_result_view, null);
-                            TextView sub = (TextView) view.findViewById(R.id.trv_sub);
+                            final TextView sub = (TextView) view.findViewById(R.id.trv_sub);
                             TextView pre = (TextView) view.findViewById(R.id.trv_pre);
                             TextView obj = (TextView) view.findViewById(R.id.trv_obj);
+                            sub.setTag(t.getId());
 
                             sub.setText(t.getSubject());
                             pre.setText(t.getPredicate());
                             obj.setText(t.getObject());
+
+                            Button more = (Button) view.findViewById(R.id.trv_more_info);
+                            more.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    handleViewRDF(sub.getTag());
+                                }
+                            });
 
                             results.addView(view);
                         }
@@ -149,6 +169,15 @@ public class LinkedSearchActivity extends AppCompatActivity {
             }
         }.execute();
 
+    }
+
+    private void handleViewRDF(Object tag) {
+        if (tag != null) {
+            String id = (String) tag;
+            Intent expandIntent = new Intent(this, RDFExpandActivity.class);
+            expandIntent.putExtra(Constants.RDF_ID, id);
+            startActivity(expandIntent);
+        }
     }
 
     private void decorateActionBar() {

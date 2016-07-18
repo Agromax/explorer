@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2685ff"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -17,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="@string/main_page_text"
-        android:textColor="#FFF"
         android:textSize="16sp" />
 
 
@@ -25,8 +23,7 @@
         android:id="@+id/explore_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/smart_btn"
+        android:layout_marginBottom="4dp"
         android:text="Explore Vocabulary"
         android:textAllCaps="false" />
 
@@ -35,8 +32,7 @@
         android:id="@+id/link_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/smart_btn"
+        android:layout_marginBottom="4dp"
         android:text="Connect Concepts"
         android:textAllCaps="false" />
 
@@ -45,8 +41,7 @@
         android:id="@+id/update_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/smart_btn"
+        android:layout_marginBottom="4dp"
         android:text="Update Vocabulary"
         android:textAllCaps="false" />
 
@@ -54,7 +49,6 @@
         android:id="@+id/about_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/smart_btn"
         android:text="About"
         android:textAllCaps="false" />
 </LinearLayout>

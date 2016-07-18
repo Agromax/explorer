@@ -6,15 +6,15 @@
     tools:context="com.rdfex.LinkedSearchActivity">
 
     <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ccc">
+        android:background="#dfdfdf">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#dfdfdf"
-            android:elevation="2dp"
             android:orientation="vertical"
             android:paddingBottom="16dp"
             android:paddingLeft="16dp"
@@ -28,17 +28,17 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/from"
+                    android:id="@+id/trv_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
-                    android:background="#ececec"
+                    android:background="#fff"
                     android:hint="Connect What?"
                     android:padding="8dp" />
 
                 <ImageButton
-                    android:id="@+id/search_from"
+                    android:id="@+id/trv_search_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
@@ -52,19 +52,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/to"
+                    android:id="@+id/trv_to"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#ececec"
+                    android:background="#fff"
                     android:hint="To What?"
                     android:padding="8dp" />
 
                 <ImageButton
-                    android:id="@+id/search_to"
+                    android:id="@+id/trv_search_to"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
@@ -76,7 +77,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/search_results"
+                android:id="@+id/als_search_results"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

@@ -12,6 +12,8 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        setTitle("About Explorer");
+
         Button okButton = (Button) findViewById(R.id.ok_btn);
         if (okButton != null) {
             okButton.setOnClickListener(new View.OnClickListener() {

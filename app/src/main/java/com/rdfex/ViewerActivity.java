@@ -47,26 +47,31 @@ public class ViewerActivity extends AppCompatActivity {
                 LinearLayout list = (LinearLayout) findViewById(R.id.rdf_list);
 
                 if (triples != null && list != null) {
+                    if (triples.size() == 0) {
+                        View noTriplesView = getLayoutInflater().inflate(R.layout.triples_not_found, null);
+                        list.addView(noTriplesView);
+                    } else {
 
-                    for (Triple t : triples) {
-                        final View rdfView = getLayoutInflater().inflate(R.layout.rdf_view, null);
-                        final TextView subjView = (TextView) rdfView.findViewById(R.id.subject);
-                        TextView predView = (TextView) rdfView.findViewById(R.id.predicate);
-                        TextView objView = (TextView) rdfView.findViewById(R.id.object);
+                        for (Triple t : triples) {
+                            final View rdfView = getLayoutInflater().inflate(R.layout.rdf_view, null);
+                            final TextView subjView = (TextView) rdfView.findViewById(R.id.subject);
+                            TextView predView = (TextView) rdfView.findViewById(R.id.predicate);
+                            TextView objView = (TextView) rdfView.findViewById(R.id.object);
 
-                        subjView.setText(t.getSubject());
-                        predView.setText(t.getPredicate());
-                        objView.setText(t.getObject());
-                        subjView.setTag(t.getId());
+                            subjView.setText(t.getSubject());
+                            predView.setText(t.getPredicate());
+                            objView.setText(t.getObject());
+                            subjView.setTag(t.getId());
 
-                        Button viewButton = (Button) rdfView.findViewById(R.id.view_rdf_btn);
-                        viewButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                handleViewRDF(subjView.getTag());
-                            }
-                        });
-                        list.addView(rdfView);
+                            Button viewButton = (Button) rdfView.findViewById(R.id.view_rdf_btn);
+                            viewButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    handleViewRDF(subjView.getTag());
+                                }
+                            });
+                            list.addView(rdfView);
+                        }
                     }
                 }
             }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="90dp"
+        android:scaleType="fitCenter"
+        android:scaleX="8"
+        android:scaleY="8"
+        android:src="@drawable/ic_mood_bad_black_24dp"
+        android:tint="#CCC" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="No Triples Found"
+        android:textSize="24sp" />
+</LinearLayout>

@@ -53,8 +53,24 @@ public class RDFExpandActivity extends AppCompatActivity {
             });
         }
 
+        Button addImage = (Button) findViewById(R.id.add_image);
+        if (addImage != null) {
+            addImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleAddImage();
+                }
+            });
+        }
         loadTriple();
         loadAffixedKnowledge();
+    }
+
+    private void handleAddImage() {
+        System.out.println("I will add an image ");
+        Intent affixImageActivity = new Intent(this, AffixImageActivity.class);
+        affixImageActivity.putExtra("tripleId", tripleId);
+        startActivity(affixImageActivity);
     }
 
     private void loadAffixedKnowledge() {
@@ -247,6 +263,7 @@ public class RDFExpandActivity extends AppCompatActivity {
         inflater.inflate(R.menu.expanded_view_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -158,6 +158,7 @@ public class TreeActivity extends AppCompatActivity {
                 sign.setBounds(0, 0, sign.getMinimumWidth(), sign.getMinimumHeight());
             }
             button.setCompoundDrawables(sign, null, null, null);
+//            button.setBackground(ContextCompat.getDrawable(this, R.drawable.tree_node_btn));
             button.setText(term);
             button.setAllCaps(false);
             button.setOnClickListener(new View.OnClickListener() {

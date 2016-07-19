@@ -2,9 +2,11 @@ package com.rdfex;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -54,7 +56,7 @@ public class TreeActivity extends AppCompatActivity {
             tableLayout.removeAllViews();
         }*/
 
-        setTitle("Vocabulary Browser");
+        setTitle("Vocabulary Explorer");
 
         // Start the process
         initiate();
@@ -146,7 +148,16 @@ public class TreeActivity extends AppCompatActivity {
     private void addContent(ViewGroup parent, final JSONObject node) {
         final String term = node.optString("text", null);
         if (term != null) {
-            Button button = new Button(this);
+            final Button button = new Button(this);
+
+            Drawable sign = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_add_black_24dp, null);
+            sign.setBounds(0, 0, sign.getMinimumWidth(), sign.getMinimumHeight());
+            boolean isExpanded = node.optBoolean("expand", false);
+            if (isExpanded) {
+                sign = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_remove_black_24dp, null);
+                sign.setBounds(0, 0, sign.getMinimumWidth(), sign.getMinimumHeight());
+            }
+            button.setCompoundDrawables(sign, null, null, null);
             button.setText(term);
             button.setAllCaps(false);
             button.setOnClickListener(new View.OnClickListener() {

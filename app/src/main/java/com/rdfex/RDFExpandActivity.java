@@ -2,6 +2,8 @@ package com.rdfex;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -108,6 +111,8 @@ public class RDFExpandActivity extends AppCompatActivity {
                                 String ctype = kw.getString("contentType");
                                 if (ctype.equalsIgnoreCase("text")) {
                                     addTextKnowledge(kw);
+                                } else {
+                                    addImageKnowledge(kw);
                                 }
                             }
                         }
@@ -117,6 +122,57 @@ public class RDFExpandActivity extends AppCompatActivity {
                 }
             }
         }.execute();
+    }
+
+    private void addImageKnowledge(final JSONObject kw) {
+        final LinearLayout extraKnowledgeList = (LinearLayout) findViewById(R.id.extra_info_list);
+
+        String path = kw.optString("content");
+        int lastSlash = path.lastIndexOf("\\");
+        if (lastSlash >= 0) {
+            final String name = path.substring(lastSlash + 1);
+            new AsyncTask<Void, Void, Bitmap>() {
+                private String uuser = "";
+
+                @Override
+                protected Bitmap doInBackground(Void... params) {
+                    Request req = new Request.Builder()
+                            .url(getString(R.string.get_affix_image_url) + name)
+                            .build();
+                    String userId = kw.optString("userId");
+                    Request userReq = new Request.Builder()
+                            .url(getString(R.string.user_info_url) + "?id=" + userId)
+                            .build();
+                    try {
+                        Response res = Constants.HTTP_CLIENT.newCall(req).execute();
+                        Response r = Constants.HTTP_CLIENT.newCall(userReq).execute();
+                        JSONObject uu = new JSONObject(r.body().string());
+                        JSONObject u = uu.getJSONObject("msg");
+                        uuser = u.getString("name");
+                        return BitmapFactory.decodeStream(res.body().byteStream());
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Bitmap bitmap) {
+                    if (bitmap != null) {
+                        View v = getLayoutInflater().inflate(R.layout.affixed_image_knowledge_layout, null);
+
+                        TextView userName = (TextView) v.findViewById(R.id.aikl_user_name);
+                        ImageView img = (ImageView) v.findViewById(R.id.aikl_image);
+
+                        userName.setText(uuser);
+                        img.setImageBitmap(bitmap);
+
+                        extraKnowledgeList.addView(v);
+                    }
+                }
+            }.execute();
+        }
+
     }
 
     private void addTextKnowledge(final JSONObject kw) {

@@ -78,7 +78,7 @@ public class AffixImageActivity extends AppCompatActivity {
 
             if (fout != null && photo != null) {
                 System.out.println("File::: " + file);
-                photo.compress(Bitmap.CompressFormat.JPEG, 18, fout);
+                photo.compress(Bitmap.CompressFormat.JPEG, 75, fout);
                 try {
                     fout.flush();
                     fout.close();

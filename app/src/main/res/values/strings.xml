@@ -3,6 +3,7 @@
     <string name="main_page_text">Welcome to RDF Triples Browser\nFollowing actions are currently available</string>
     <string name="explorer_url">http://192.168.1.3:3000/ex/</string>
     <string name="vocab_url">http://192.168.1.3:3000/vocab</string>
+    <string name="terms_url">http://192.168.1.3:3000/terms</string>
     <string name="vocab_file_name">vocab.json</string>
     <string name="vocab_not_found">Vocabulary file is either absent or corrupted. Please load it first and try again</string>
 

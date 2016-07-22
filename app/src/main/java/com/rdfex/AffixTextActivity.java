@@ -71,7 +71,7 @@ public class AffixTextActivity extends AppCompatActivity {
         final String s = text.getText().toString();
 
         if (!s.isEmpty()) {
-            final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Posting you knowledge", true);
+            final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Posting your knowledge", true);
 
             new AsyncTask<Void, Void, String>() {
 

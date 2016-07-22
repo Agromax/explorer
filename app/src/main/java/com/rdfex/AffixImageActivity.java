@@ -1,5 +1,6 @@
 package com.rdfex;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.rdfex.util.Constants;
@@ -61,6 +63,61 @@ public class AffixImageActivity extends AppCompatActivity {
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
         });
+
+        Button sendBtn = (Button) this.findViewById(R.id.aai_save_btn);
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleSend();
+            }
+        });
+    }
+
+    private void handleSend() {
+        EditText cap = (EditText) findViewById(R.id.aai_caption);
+        String capText = cap.getText().toString();
+
+        final String file = getString(R.string.temp_image);
+        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Posting your knowledge", true);
+
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+
+
+                RequestBody body = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("image",
+                                file,
+                                RequestBody.create(MediaType.parse("image/jpg"), getFileStreamPath(file)))
+                        .addFormDataPart("user", activeUser.getUserId())
+                        .addFormDataPart("sessionToken", activeUser.getSessionToken())
+                        .addFormDataPart("triple", tripleId)
+                        .build();
+
+                Request req = new Request.Builder()
+                        .url(getString(R.string.affix_image_url))
+                        .post(body)
+                        .build();
+                try {
+                    Response res = Constants.HTTP_CLIENT.newCall(req).execute();
+                    return res.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                System.out.println(s);
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
+                finish();
+            }
+        }.execute();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -86,43 +143,9 @@ public class AffixImageActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                new AsyncTask<Void, Void, String>() {
-
-                    @Override
-                    protected String doInBackground(Void... params) {
-
-
-                        RequestBody body = new MultipartBody.Builder()
-                                .setType(MultipartBody.FORM)
-                                .addFormDataPart("image",
-                                        file,
-                                        RequestBody.create(MediaType.parse("image/jpg"), getFileStreamPath(file)))
-                                .addFormDataPart("user", activeUser.getUserId())
-                                .addFormDataPart("sessionToken", activeUser.getSessionToken())
-                                .addFormDataPart("triple", tripleId)
-                                .build();
-
-                        Request req = new Request.Builder()
-                                .url(getString(R.string.affix_image_url))
-                                .post(body)
-                                .build();
-                        try {
-                            Response res = Constants.HTTP_CLIENT.newCall(req).execute();
-                            return res.body().string();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(String s) {
-                        System.out.println(s);
-                        finish();
-                    }
-                }.execute();
+                // Set the image
+                imageView.setImageBitmap(photo);
             }
-            imageView.setImageBitmap(photo);
         }
     }
 }

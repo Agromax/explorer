@@ -1,5 +1,8 @@
 package com.rdfex;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -60,6 +63,14 @@ public class TreeActivity extends AppCompatActivity {
 
         // Start the process
         initiate();
+
+        // Search results
+        // Get the intent, verify the action and get the query
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            System.out.println(query);
+        }
     }
 
 
@@ -299,18 +310,26 @@ public class TreeActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
 
         // TODO View https://androidhub.intel.com/en/posts/nglauber/Android_Search.html
+
+
         //
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                System.out.println(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                System.out.println(newText);
                 return false;
             }
         });
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, TreeActivity.class)));
+
         return true;
     }
 }

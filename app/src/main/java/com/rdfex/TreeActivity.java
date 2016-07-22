@@ -214,14 +214,41 @@ public class TreeActivity extends AppCompatActivity {
         return false;
     }
 
+    private int computeNodalPath(JSONObject node, JSONObject target, HashSet<JSONObject> path) {
+        int len = 0;
+        JSONObject p = node;
+
+        while (p != target) {
+            JSONArray children = p.optJSONArray("nodes");
+            for (int i = 0; i < children.length(); i++) {
+                len++;
+                JSONObject child = children.optJSONObject(i);
+                if (path.contains(child)) {
+                    p = child;
+                    break;
+                }
+            }
+        }
+
+        return len;
+    }
+
     private void shrinkSiblings(final JSONObject node) {
         new AsyncTask<Void, Void, Void>() {
             private HashSet<JSONObject> path = null;
+            private int nodalLength = 0;
 
             @Override
             protected Void doInBackground(Void... params) {
                 path = new HashSet<>();
                 if (findPath(vocabJson, node, path)) {
+                    nodalLength = computeNodalPath(vocabJson, node, path);
+//                    System.out.println("Path length: " + path.size());
+//                    for (JSONObject pp : path) {
+//                        System.out.print(pp.optString("text") + " ");
+//                    }
+//                    System.out.println();
+//                    System.out.println("Nodal Length = " + nodalLength + " yahan per gadbad hai!");
                     path.add(vocabJson);
                     unmarkExcept(vocabJson, path);
                 }
@@ -233,7 +260,7 @@ public class TreeActivity extends AppCompatActivity {
                 tableLayout.removeAllViews();
                 currentVisible.clear();
                 addToView(vocabJson, 0);
-
+/*
                 int cnt = 0;
                 for (JSONObject o : currentVisible) {
                     if (o == node) {
@@ -241,9 +268,17 @@ public class TreeActivity extends AppCompatActivity {
                     } else {
                         cnt++;
                     }
-                }
-                ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
-                scrollView.scrollTo(0, cnt * 60);
+                }*/
+                System.out.println("nl: " + nodalLength * 80);
+                final ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.smoothScrollTo(0, nodalLength * 90);
+                    }
+                });
+
+
             }
         }.execute();
 

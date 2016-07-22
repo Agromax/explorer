@@ -31,9 +31,11 @@
 
         <Button
             android:id="@+id/explore_btn"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:background="@drawable/blue_btn"
             android:text="Explore Vocabulary"
             android:textAllCaps="false" />
 
@@ -43,22 +45,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:background="@drawable/blue_btn"
             android:text="Connect Concepts"
             android:textAllCaps="false" />
 
 
         <Button
             android:id="@+id/update_btn"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:background="@drawable/blue_btn"
             android:text="Update Vocabulary"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/about_btn"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/blue_btn"
             android:text="About"
             android:textAllCaps="false" />
     </LinearLayout>

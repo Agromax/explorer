@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.rdfex.util.Constants;
 import com.rdfex.util.ExUtil;
@@ -89,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 String result = data.getStringExtra(Constants.LOGIN_RESULT);
-                ExUtil.alert(this, "Login Successful");
+                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+//                ExUtil.alert(this, "Login Successful");
                 try {
                     JSONObject user = new JSONObject(result);
                     String name = user.optString("name", null);

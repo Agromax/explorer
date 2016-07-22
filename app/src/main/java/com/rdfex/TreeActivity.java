@@ -1,8 +1,5 @@
 package com.rdfex;
 
-import android.app.SearchManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -10,10 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -63,14 +58,6 @@ public class TreeActivity extends AppCompatActivity {
 
         // Start the process
         initiate();
-
-        // Search results
-        // Get the intent, verify the action and get the query
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            System.out.println(query);
-        }
     }
 
 
@@ -307,29 +294,68 @@ public class TreeActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.treeview_menu, menu);
 
         MenuItem search = menu.findItem(R.id.search_btn);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
-
-        // TODO View https://androidhub.intel.com/en/posts/nglauber/Android_Search.html
-
-
-        //
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        search.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                System.out.println(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                System.out.println(newText);
+            public boolean onMenuItemClick(MenuItem item) {
+                handleSearch();
                 return false;
             }
         });
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, TreeActivity.class)));
-
         return true;
+    }
+
+    private void handleSearch() {
+        Intent intent = new Intent(this, SearchTermActivity.class);
+        startActivityForResult(intent, Constants.SEARCH_TERM_REQUEST_CODE);
+    }
+
+
+    private JSONObject findNodeFromText(JSONObject u, String name) {
+        String text = u.optString("text");
+        if (text != null && text.equals(name)) return u;
+        JSONArray children = u.optJSONArray("nodes");
+        if (children != null) {
+            for (int i = 0; i < children.length(); i++) {
+                JSONObject v = children.optJSONObject(i);
+                JSONObject w = findNodeFromText(v, name);
+                if (w != null) return w;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.SEARCH_TERM_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                final String queryTerm = data.getStringExtra("queryTerm");
+                System.out.println("Query Term: " + queryTerm);
+                new AsyncTask<Void, Void, JSONObject>() {
+                    HashSet<JSONObject> path = new HashSet<>();
+
+                    @Override
+                    protected JSONObject doInBackground(Void... params) {
+                        JSONObject node = findNodeFromText(vocabJson, queryTerm);
+                        findPath(vocabJson, node, path);
+                        for (JSONObject n : path) {
+                            try {
+                                n.put("expand", true);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        return node;
+                    }
+
+                    @Override
+                    protected void onPostExecute(JSONObject node) {
+                        if (node != null) {
+                            System.out.println("Node is not null  " + node.optString("text"));
+                            shrinkSiblings(node);
+                        }
+                    }
+                }.execute();
+            }
+        }
     }
 }

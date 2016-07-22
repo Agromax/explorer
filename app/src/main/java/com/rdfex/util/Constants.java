@@ -19,4 +19,6 @@ public class Constants {
     public static ActiveUser ACTIVE_USER = null;
 
     public static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
+
+    public static final int SEARCH_TERM_REQUEST_CODE = 0xb800;
 }

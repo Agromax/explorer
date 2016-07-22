@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Anurag Gautam\nThis software application was developed as a part of my Masters' Thesis"
+        android:text="Developed by Anurag Gautam\nThis software application was developed as a part of my Masters' Thesis"
         android:textColor="#FFF"
         android:textSize="20sp" />
 
@@ -42,7 +42,7 @@
             android:id="@+id/ok_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ok" />
+            android:text="Close" />
     </RelativeLayout>
 
 </RelativeLayout>
